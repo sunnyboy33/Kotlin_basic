@@ -10,6 +10,17 @@ class Coffee(
     private var _totalSalesCnt:Int = 0
 ) {
 
+    // static 변수 선언하기
+    companion object{
+        val category = "DRINK"
+
+        fun printCategory(){
+            println(category)
+        }
+
+
+    }
+
     // field : backing field 에 접근하기 위한 키워드
     var name:String? = null
         //get() = name // recursive property accessor. name 에서 name 을 호출하기 때문
@@ -46,6 +57,7 @@ fun main() {
     americano.name = "americano"
     println(americano.name)
     americano.addTotalSalesCnt(10)
-    println(americano.totalSalesCnt)
+    println(Coffee.category)
+    Coffee.printCategory()
 
 }
