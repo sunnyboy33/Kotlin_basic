@@ -3,24 +3,28 @@ package d_function
 import kotlin.time.times
 
 fun main() {
-    println(add(100, 200))
-    println(sub(200, 100))
-    println(divide(30.5,10.3))
-    println(printNumber(1000)) // 아무것도 반환되지 않을 때 Unit 이 반환됨
+//    println(add(100, 200))
+//    println(sub(200, 100))
+//    println(divide(30.5,10.3))
+//    println(printNumber(1000)) // 아무것도 반환되지 않을 때 Unit 이 반환됨
 
     // 마지막 매개변수가 함수 타입일 경우
     //println(filter(listOf(1,2,3,4,5,6,7,8,9)) { e: Int -> e % 2 == 0 })
     // it : 람다의 매개변수가 1개일 경우 사용할 수 있는 암시적 이름
-    println(filter(listOf(1,2,3,4,5,6,7,8,9)) { it % 2 == 0 })
-    println(map(listOf(1,2,3,4,5,6,7,8,9)) {"$it 번!!"})
-    println(map(listOf(1,2,3,4,5,6,7,8,9)) {it * 100})
+//    println(filter(listOf(1,2,3,4,5,6,7,8,9)) { it % 2 == 0 })
+//    println(map(listOf(1,2,3,4,5,6,7,8,9)) {"$it 번!!"})
+//    println(map(listOf(1,2,3,4,5,6,7,8,9)) {it * 100})
+//    println(reduce(listOf(1,2,3,4,5,6,7,8,9)) {acc:Int, e:Int -> acc+e})
+    println(reduce(listOf(1,2,3,4,5,6,7,8,9)) {acc:Int, e:Int -> acc * e})
 }
 
 fun add(a:Int, b:Int):Int {
     return a + b
 }
 
-// 코틀린의 함수는 1급 객체
+// Kotlin 의 함수는 1급 객체
+// First class Object : 다른 객체들에 일반적으로 적용 가능한 연산을 모두 지원하는 객체
+// 즉, 함수를 데이터 다루듯이 쓸 수 있다는 것
 val sub = fun (a:Int, b:Int):Int{
     return a - b
 }
@@ -54,4 +58,11 @@ fun <E, T> map(list: List<E>, callback: (e:E) -> T) : MutableList<T> {
     val res = mutableListOf<T>()
     list.forEach{e:E -> res.add(callback(e))}
     return res
+}
+
+// Reduce
+fun <E> reduce(list: List<E>, operation: (acc:E, E) -> E) : E {
+    var acc = list[0]
+    list.drop(1).forEach { e:E -> acc = operation(acc, e) }
+    return acc
 }
